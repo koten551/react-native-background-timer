@@ -9,7 +9,15 @@ import {
 const { RNBackgroundTimer } = NativeModules;
 const Emitter = new NativeEventEmitter(RNBackgroundTimer);
 
-class BackgroundTimer {
+export interface BackgroundTimerProps {
+  setTimeout: (callback: () => void, timeout: number) => void
+  clearTimeout: (timeoutId: string) => void
+  setInterval: (callback: () => void, timeout: number) => void
+  clearInterval: (intervalId: string) => void
+}
+
+class BackgroundTimer implements BackgroundTimerProps {
+
   constructor() {
     this.uniqueId = 0;
     this.callbacks = {};
@@ -102,6 +110,6 @@ class BackgroundTimer {
       // RNBackgroundTimer.clearTimeout(intervalId);
     }
   }
-}
+} 
 
 export default new BackgroundTimer();
